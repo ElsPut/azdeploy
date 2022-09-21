@@ -11,6 +11,7 @@ jobs:
   deploy-test:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v3
       - uses: ./.github/workflows/CreateRG.yml
         with:
           environmentname: test
@@ -20,6 +21,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: [deploy-test]
     steps:
+      - uses: actions/checkout@v3
       - uses: ./.github/workflows/CreateRG.yml
         with:
           environmentname: production
