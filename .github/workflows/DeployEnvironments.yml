@@ -12,7 +12,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: ./.github/workflows/CreateRG.yml
-        secrets: inherit
         with:
           environmentname: test
           Az_RG_Name: RG30-test
@@ -22,7 +21,6 @@ jobs:
     needs: [deploy-test]
     steps:
       - uses: ./.github/workflows/CreateRG.yml
-        secrets: inherit
         with:
           environmentname: production
           Az_RG_Name: RG30-prod

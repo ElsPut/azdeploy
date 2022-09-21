@@ -14,7 +14,6 @@ on:
     
     secrets:
       AZURE_CREDENTIALS:
-        required: true
         
 jobs:
   # This workflow contains a single job called "build"
