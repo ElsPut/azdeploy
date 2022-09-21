@@ -10,35 +10,20 @@ jobs:
   # This workflow contains a single job called "build"
   deploy-test:
     runs-on: ubuntu-latest
-    environment: test
-    env: 
-      Az_RG_Name: RG20-Test
     steps:
-      - uses: actions/checkout@v3
-      - name: Sign in to Azure
-        uses: azure/login@v1
+      - uses: ./.github/workflows/CreateRG.yml
+        secrets: inherit
         with:
-          creds: ${{secrets.AZURE_CREDENTIALS_TEST}}
-
-      - name: Create RG
-        uses: azure/cli@v1
-        with:
-          inlineScript: az group create --name ${{env.Az_RG_Name}} --location 'WestEurope'
+          environmentname: test
+          Az_RG_Name: RG30-test
   
   deploy-prod:
     runs-on: ubuntu-latest
-    environment: production
     needs: [deploy-test]
-    env: 
-      Az_RG_Name: RG20-Prod
     steps:
-      - uses: actions/checkout@v3
-      - name: Sign in to Azure
-        uses: azure/login@v1
+      - uses: ./.github/workflows/CreateRG.yml
+        secrets: inherit
         with:
-          creds: ${{secrets.AZURE_CREDENTIALS_PROD}}
-
-      - name: Create RG
-        uses: azure/cli@v1
-        with:
-          inlineScript: az group create --name ${{env.Az_RG_Name}} --location 'WestEurope'
+          environmentname: production
+          Az_RG_Name: RG30-prod
+          
